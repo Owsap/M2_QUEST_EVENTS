@@ -1,0 +1,26 @@
+quest new_event_test begin
+	state start begin
+		when mine begin
+			notice("You are mining.")
+		end
+
+		when fish begin
+			notice("You are fishing.")
+		end
+
+		when 20018.craft begin -- Baek-Go NPC
+			notice(string.format("You have crafted something from NPC %d", npc.get_race()))
+			notice(string.format("You crafted item %d", item.get_vnum()))
+		end
+
+		when 9003.buy begin
+			notice(string.format("You have bought something from NPC %d", npc.get_race()))
+			notice(string.format("You bought item %d", item.get_vnum()))
+		end
+
+		when 9003.sell begin
+			notice(string.format("You have sold something to NPC %d", npc.get_race()))
+			notice(string.format("You sold item %d", item.get_vnum()))
+		end
+	end
+end
