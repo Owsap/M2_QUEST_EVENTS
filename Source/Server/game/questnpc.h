@@ -16,3 +16,6 @@
 #if defined(__QUEST_EVENT_CRAFT__)
 		bool OnCraftItem(PC& pc);
 #endif
+#if defined(__QUEST_EVENT_EMOTION__)
+		bool OnEmotion(PC& pc);
+#endif

@@ -31,3 +31,12 @@
 			return HandleEvent(pc, QUEST_ITEM_CRAFT_EVENT);
 	}
 #endif
+#if defined(__QUEST_EVENT_EMOTION__)
+	bool NPC::OnEmotion(PC& pc)
+	{
+		if (m_vnum == 0)
+			return HandleReceiveAllEvent(pc, QUEST_EMOTION_EVENT);
+		else
+			return HandleEvent(pc, QUEST_EMOTION_EVENT);
+	}
+#endif

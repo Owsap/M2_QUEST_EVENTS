@@ -16,3 +16,6 @@
 #if defined(__QUEST_EVENT_CRAFT__)
 		QUEST_ITEM_CRAFT_EVENT,
 #endif
+#if defined(__QUEST_EVENT_EMOTION__)
+		QUEST_EMOTION_EVENT,
+#endif

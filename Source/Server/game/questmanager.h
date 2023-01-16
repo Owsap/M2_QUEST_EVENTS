@@ -16,3 +16,6 @@
 #if defined(__QUEST_EVENT_CRAFT__)
 		void CraftItem(unsigned int pc, unsigned int npc, LPITEM item);
 #endif
+#if defined(__QUEST_EVENT_EMOTION__)
+		void Emotion(unsigned int pc, unsigned int target);
+#endif

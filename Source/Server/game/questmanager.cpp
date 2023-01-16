@@ -16,6 +16,9 @@
 #if defined(__QUEST_EVENT_CRAFT__)
 		m_mapEventName.insert(TEventNameMap::value_type("craft", QUEST_ITEM_CRAFT_EVENT));
 #endif
+#if defined(__QUEST_EVENT_EMOTION__)
+		m_mapEventName.insert(TEventNameMap::value_type("emotion", QUEST_EMOTION_EVENT));
+#endif
 
 /// 2.
 // Add at the bottom of the file above }
@@ -140,6 +143,27 @@
 		else
 		{
 			sys_err("QUEST ITEM_CRAFT_EVENT no such pc id : %d", pc);
+		}
+	}
+#endif
+
+#if defined(__QUEST_EVENT_EMOTION__)
+	void CQuestManager::Emotion(unsigned int pc, unsigned int target)
+	{
+		PC* pPC;
+		if ((pPC = GetPC(pc)))
+		{
+			if (!CheckQuestLoaded(pPC))
+				return;
+
+			if (target != QUEST_NO_NPC)
+				m_mapNPC[target].OnEmotion(*pPC);
+
+			m_mapNPC[QUEST_NO_NPC].OnEmotion(*pPC);
+		}
+		else
+		{
+			sys_err("QUEST EMOTION_EVENT no such pc id : %d", pc);
 		}
 	}
 #endif
