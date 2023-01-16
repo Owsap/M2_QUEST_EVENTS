@@ -23,7 +23,6 @@
 	void CQuestManager::Fish(unsigned int pc)
 	{
 		PC* pPC;
-
 		if ((pPC = GetPC(pc)))
 		{
 			if (!CheckQuestLoaded(pPC))
@@ -42,7 +41,6 @@
 	void CQuestManager::Mine(unsigned int pc)
 	{
 		PC* pPC;
-
 		if ((pPC = GetPC(pc)))
 		{
 			if (!CheckQuestLoaded(pPC))
@@ -59,7 +57,7 @@
 
 
 #if defined(__QUEST_EVENT_BUY_SELL__)
-	bool CQuestManager::BuyItem(unsigned int pc, unsigned int npc, LPITEM item)
+	void CQuestManager::BuyItem(unsigned int pc, unsigned int npc, LPITEM item)
 	{
 		PC* pPC;
 		if ((pPC = GetPC(pc)))
@@ -68,22 +66,26 @@
 			{
 				LPCHARACTER ch = CHARACTER_MANAGER::instance().FindByPID(pc);
 				if (ch)
+				{
 					ch->ChatPacket(CHAT_TYPE_INFO, LC_STRING("Äù½ºÆ®¸¦ ·ÎµåÇÏ´Â ÁßÀÔ´Ï´Ù. Àá½Ã¸¸ ±â´Ù·Á ÁÖ½Ê½Ã¿À."));
-
-				return false;
+				}
+				return;
 			}
 
 			SetCurrentItem(item);
-			return m_mapNPC[npc].OnBuyItem(*pPC);
+
+			if (npc != QUEST_NO_NPC)
+				m_mapNPC[npc].OnBuyItem(*pPC);
+
+			m_mapNPC[QUEST_NO_NPC].OnBuyItem(*pPC);
 		}
 		else
 		{
 			sys_err("QUEST ITEM_BUY_EVENT no such pc id : %d", pc);
-			return false;
 		}
 	}
 
-	bool CQuestManager::SellItem(unsigned int pc, unsigned int npc, LPITEM item)
+	void CQuestManager::SellItem(unsigned int pc, unsigned int npc, LPITEM item)
 	{
 		PC* pPC;
 		if ((pPC = GetPC(pc)))
@@ -92,24 +94,28 @@
 			{
 				LPCHARACTER ch = CHARACTER_MANAGER::instance().FindByPID(pc);
 				if (ch)
+				{
 					ch->ChatPacket(CHAT_TYPE_INFO, LC_STRING("Äù½ºÆ®¸¦ ·ÎµåÇÏ´Â ÁßÀÔ´Ï´Ù. Àá½Ã¸¸ ±â´Ù·Á ÁÖ½Ê½Ã¿À."));
-
-				return false;
+				}
+				return;
 			}
 
 			SetCurrentItem(item);
-			return m_mapNPC[npc].OnSellItem(*pPC);
+
+			if (npc != QUEST_NO_NPC)
+				m_mapNPC[npc].OnSellItem(*pPC);
+
+			m_mapNPC[QUEST_NO_NPC].OnSellItem(*pPC);
 		}
 		else
 		{
 			sys_err("QUEST ITEM_SELL_EVENT no such pc id : %d", pc);
-			return false;
 		}
 	}
 #endif
 
 #if defined(__QUEST_EVENT_CRAFT__)
-	bool CQuestManager::CraftItem(unsigned int pc, unsigned int npc, LPITEM item)
+	void CQuestManager::CraftItem(unsigned int pc, unsigned int npc, LPITEM item)
 	{
 		PC* pPC;
 		if ((pPC = GetPC(pc)))
@@ -118,18 +124,22 @@
 			{
 				LPCHARACTER ch = CHARACTER_MANAGER::instance().FindByPID(pc);
 				if (ch)
+				{
 					ch->ChatPacket(CHAT_TYPE_INFO, LC_STRING("Äù½ºÆ®¸¦ ·ÎµåÇÏ´Â ÁßÀÔ´Ï´Ù. Àá½Ã¸¸ ±â´Ù·Á ÁÖ½Ê½Ã¿À."));
-
-				return false;
+				}
+				return;
 			}
 
 			SetCurrentItem(item);
-			return m_mapNPC[npc].OnCraftItem(*pPC);
+
+			if (npc != QUEST_NO_NPC)
+				m_mapNPC[npc].OnCraftItem(*pPC);
+
+			m_mapNPC[QUEST_NO_NPC].OnCraftItem(*pPC);
 		}
 		else
 		{
 			sys_err("QUEST ITEM_CRAFT_EVENT no such pc id : %d", pc);
-			return false;
 		}
 	}
 #endif

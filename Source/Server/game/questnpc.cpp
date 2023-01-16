@@ -7,9 +7,27 @@
 	bool NPC::OnMine(PC& pc) { return HandleReceiveAllEvent(pc, QUEST_MINE_EVENT); }
 #endif
 #if defined(__QUEST_EVENT_BUY_SELL__)
-	bool NPC::OnBuyItem(PC& pc) { return HandleEvent(pc, QUEST_ITEM_BUY_EVENT); }
-	bool NPC::OnSellItem(PC& pc) { return HandleEvent(pc, QUEST_ITEM_SELL_EVENT); }
+	bool NPC::OnBuyItem(PC& pc)
+	{
+		if (m_vnum == 0)
+			return HandleReceiveAllEvent(pc, QUEST_ITEM_BUY_EVENT);
+		else
+			return HandleEvent(pc, QUEST_ITEM_BUY_EVENT);
+	}
+	bool NPC::OnSellItem(PC& pc)
+	{
+		if (m_vnum == 0)
+			return HandleReceiveAllEvent(pc, QUEST_ITEM_SELL_EVENT);
+		else
+			return HandleEvent(pc, QUEST_ITEM_SELL_EVENT);
+	}
 #endif
 #if defined(__QUEST_EVENT_CRAFT__)
-	bool NPC::OnCraftItem(PC& pc) { return HandleEvent(pc, QUEST_ITEM_CRAFT_EVENT); }
+	bool NPC::OnCraftItem(PC& pc)
+	{
+		if (m_vnum == 0)
+			return HandleReceiveAllEvent(pc, QUEST_ITEM_CRAFT_EVENT);
+		else
+			return HandleEvent(pc, QUEST_ITEM_CRAFT_EVENT);
+	}
 #endif

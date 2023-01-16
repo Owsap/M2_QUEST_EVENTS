@@ -10,5 +10,6 @@
 
 // Add below
 #if defined(__QUEST_EVENT_CRAFT__)
+		ch->SetQuestNPCID(npc->GetVID());
 		quest::CQuestManager::instance().CraftItem(ch->GetPlayerID(), npc->GetRaceNum(), new_item);
 #endif
